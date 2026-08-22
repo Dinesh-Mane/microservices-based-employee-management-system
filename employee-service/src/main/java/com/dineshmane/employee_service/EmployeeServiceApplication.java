@@ -4,6 +4,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 import org.springframework.web.client.RestTemplate;
+import org.springframework.web.reactive.function.client.WebClient;
 
 @SpringBootApplication
 public class EmployeeServiceApplication {
@@ -13,9 +14,15 @@ public class EmployeeServiceApplication {
 		System.out.println("From Employee Service..!!!");
 	}
 
-	@Bean
-	public RestTemplate restTemplate(){
-		return new RestTemplate();
-	}
+//	// RestTemplate bean
+//	@Bean
+//	public RestTemplate restTemplate(){
+//		return new RestTemplate();
+//	}
 
+	// Webclient bean
+	@Bean
+	public WebClient webClient(){
+		return WebClient.builder().build();
+	}
 }

@@ -11,6 +11,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
+import org.springframework.web.reactive.function.client.WebClient;
 
 import java.util.List;
 
@@ -19,7 +20,8 @@ import java.util.List;
 public class EmployeeServiceImpl implements EmployeeService {
 
     private EmployeeRepository employeeRepository;
-    private RestTemplate restTemplate;
+//    private RestTemplate restTemplate;
+    private WebClient webClient;
 
     @Override
     public EmployeeDto saveEmployee(EmployeeDto employeeDto) {
@@ -38,12 +40,20 @@ public class EmployeeServiceImpl implements EmployeeService {
     public APIResponseDto getEmployeeById(Long id) {
         Employee employee = employeeRepository.findById(id).get();
 
-        ResponseEntity<DepartmentDto> response = restTemplate.getForEntity(
-                "http://localhost:8080/api/departments/" + employee.getDepartmentCode(),
-                DepartmentDto.class
-        );
+        // REST API call using RestTemplate
+//        ResponseEntity<DepartmentDto> response = restTemplate.getForEntity(
+//                "http://localhost:8080/api/departments/" + employee.getDepartmentCode(),
+//                DepartmentDto.class
+//        );
+//        DepartmentDto departmentDto = response.getBody();
 
-        DepartmentDto departmentDto = response.getBody();
+        // REST API call using WebClient
+        DepartmentDto departmentDto = webClient.get()
+                .uri("http://localhost:8080/api/departments/"+employee.getDepartmentCode())
+                .retrieve()
+                .bodyToMono(DepartmentDto.class)
+                .block();  // for synchronous calling
+
         EmployeeDto employeeDto = new EmployeeDto(employee.getId(), employee.getFirstName(), employee.getLastName(), employee.getEmail(), employee.getDepartmentCode());
         return new APIResponseDto(employeeDto,departmentDto);
     }
