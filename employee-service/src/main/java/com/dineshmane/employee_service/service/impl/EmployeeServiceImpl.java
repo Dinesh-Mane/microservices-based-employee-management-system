@@ -21,22 +21,24 @@ public class EmployeeServiceImpl implements EmployeeService {
         employee.setFirstName(employeeDto.getFirstName());
         employee.setLastName(employeeDto.getLastName());
         employee.setEmail(employeeDto.getEmail());
+        employee.setDepartmentCode(employeeDto.getDepartmentCode());
+
 
         Employee savedEmp = employeeRepository.save(employee);
-        return new EmployeeDto(savedEmp.getId(), savedEmp.getFirstName(), savedEmp.getLastName(), savedEmp.getEmail());
+        return new EmployeeDto(savedEmp.getId(), savedEmp.getFirstName(), savedEmp.getLastName(), savedEmp.getEmail(), savedEmp.getDepartmentCode());
     }
 
     @Override
     public EmployeeDto getEmployeeById(Long id) {
         Employee employee = employeeRepository.findById(id).get();
-        return new EmployeeDto(employee.getId(), employee.getFirstName(), employee.getLastName(), employee.getEmail());
+        return new EmployeeDto(employee.getId(), employee.getFirstName(), employee.getLastName(), employee.getEmail(), employee.getDepartmentCode());
     }
 
     @Override
     public List<EmployeeDto> getAllEmployees() {
         List<Employee> allEmp = employeeRepository.findAll();
         return allEmp.stream()
-                .map(e -> new EmployeeDto(e.getId(), e.getFirstName(), e.getLastName(), e.getEmail()))
+                .map(e -> new EmployeeDto(e.getId(), e.getFirstName(), e.getLastName(), e.getEmail(), e.getDepartmentCode()))
                 .toList();
     }
 
@@ -46,8 +48,9 @@ public class EmployeeServiceImpl implements EmployeeService {
         employee.setFirstName(employeeDto.getFirstName());
         employee.setLastName(employeeDto.getLastName());
         employee.setEmail(employeeDto.getEmail());
+        employee.setDepartmentCode(employeeDto.getDepartmentCode());
         Employee updatedEmp = employeeRepository.save(employee);
-        return new EmployeeDto(updatedEmp.getId(), updatedEmp.getFirstName(), updatedEmp.getLastName(), updatedEmp.getEmail());
+        return new EmployeeDto(updatedEmp.getId(), updatedEmp.getFirstName(), updatedEmp.getLastName(), updatedEmp.getEmail(), updatedEmp.getDepartmentCode());
     }
 
     @Override
