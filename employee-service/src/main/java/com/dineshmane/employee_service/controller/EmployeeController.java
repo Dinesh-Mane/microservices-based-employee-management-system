@@ -1,5 +1,6 @@
 package com.dineshmane.employee_service.controller;
 
+import com.dineshmane.employee_service.dto.APIResponseDto;
 import com.dineshmane.employee_service.dto.EmployeeDto;
 import com.dineshmane.employee_service.service.EmployeeService;
 import lombok.AllArgsConstructor;
@@ -24,7 +25,7 @@ public class EmployeeController {
     }
 
     @GetMapping("/{empId}")
-    public ResponseEntity<EmployeeDto> getEmployeeById(@PathVariable("empId") Long id){
+    public ResponseEntity<APIResponseDto> getEmployeeById(@PathVariable("empId") Long id){
         return ResponseEntity.status(HttpStatus.OK).body(employeeService.getEmployeeById(id));
     }
     @GetMapping

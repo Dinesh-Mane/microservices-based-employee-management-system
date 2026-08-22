@@ -1,11 +1,16 @@
 package com.dineshmane.employee_service.service.impl;
 
+import com.dineshmane.employee_service.dto.APIResponseDto;
+import com.dineshmane.employee_service.dto.DepartmentDto;
 import com.dineshmane.employee_service.dto.EmployeeDto;
 import com.dineshmane.employee_service.entity.Employee;
 import com.dineshmane.employee_service.repository.EmployeeRepository;
 import com.dineshmane.employee_service.service.EmployeeService;
 import lombok.AllArgsConstructor;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestTemplate;
 
 import java.util.List;
 
@@ -14,6 +19,7 @@ import java.util.List;
 public class EmployeeServiceImpl implements EmployeeService {
 
     private EmployeeRepository employeeRepository;
+    private RestTemplate restTemplate;
 
     @Override
     public EmployeeDto saveEmployee(EmployeeDto employeeDto) {
@@ -29,9 +35,17 @@ public class EmployeeServiceImpl implements EmployeeService {
     }
 
     @Override
-    public EmployeeDto getEmployeeById(Long id) {
+    public APIResponseDto getEmployeeById(Long id) {
         Employee employee = employeeRepository.findById(id).get();
-        return new EmployeeDto(employee.getId(), employee.getFirstName(), employee.getLastName(), employee.getEmail(), employee.getDepartmentCode());
+
+        ResponseEntity<DepartmentDto> response = restTemplate.getForEntity(
+                "http://localhost:8080/api/departments/" + employee.getDepartmentCode(),
+                DepartmentDto.class
+        );
+
+        DepartmentDto departmentDto = response.getBody();
+        EmployeeDto employeeDto = new EmployeeDto(employee.getId(), employee.getFirstName(), employee.getLastName(), employee.getEmail(), employee.getDepartmentCode());
+        return new APIResponseDto(employeeDto,departmentDto);
     }
 
     @Override
