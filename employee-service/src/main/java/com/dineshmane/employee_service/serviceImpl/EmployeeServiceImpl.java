@@ -1,16 +1,14 @@
-package com.dineshmane.employee_service.service.impl;
+package com.dineshmane.employee_service.serviceImpl;
 
 import com.dineshmane.employee_service.dto.APIResponseDto;
 import com.dineshmane.employee_service.dto.DepartmentDto;
 import com.dineshmane.employee_service.dto.EmployeeDto;
 import com.dineshmane.employee_service.entity.Employee;
 import com.dineshmane.employee_service.repository.EmployeeRepository;
+import com.dineshmane.employee_service.service.APIClient;
 import com.dineshmane.employee_service.service.EmployeeService;
 import lombok.AllArgsConstructor;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-import org.springframework.web.client.RestTemplate;
 import org.springframework.web.reactive.function.client.WebClient;
 
 import java.util.List;
@@ -21,7 +19,8 @@ public class EmployeeServiceImpl implements EmployeeService {
 
     private EmployeeRepository employeeRepository;
 //    private RestTemplate restTemplate;
-    private WebClient webClient;
+//    private WebClient webClient;
+    private APIClient apiClient;
 
     @Override
     public EmployeeDto saveEmployee(EmployeeDto employeeDto) {
@@ -48,12 +47,14 @@ public class EmployeeServiceImpl implements EmployeeService {
 //        DepartmentDto departmentDto = response.getBody();
 
         // REST API call using WebClient
-        DepartmentDto departmentDto = webClient.get()
-                .uri("http://localhost:8080/api/departments/"+employee.getDepartmentCode())
-                .retrieve()
-                .bodyToMono(DepartmentDto.class)
-                .block();  // for synchronous calling
+//        DepartmentDto departmentDto = webClient.get()
+//                .uri("http://localhost:8080/api/departments/"+employee.getDepartmentCode())
+//                .retrieve()
+//                .bodyToMono(DepartmentDto.class)
+//                .block();  // for synchronous calling
 
+        // REST API call using Feign client
+        DepartmentDto departmentDto = apiClient.getDepartment(employee.getDepartmentCode());
         EmployeeDto employeeDto = new EmployeeDto(employee.getId(), employee.getFirstName(), employee.getLastName(), employee.getEmail(), employee.getDepartmentCode());
         return new APIResponseDto(employeeDto,departmentDto);
     }

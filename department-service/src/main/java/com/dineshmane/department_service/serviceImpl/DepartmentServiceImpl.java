@@ -1,4 +1,4 @@
-package com.dineshmane.department_service.service.impl;
+package com.dineshmane.department_service.serviceImpl;
 
 import com.dineshmane.department_service.dto.DepartmentDto;
 import com.dineshmane.department_service.entity.Department;
