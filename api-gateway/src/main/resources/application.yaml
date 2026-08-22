@@ -3,19 +3,19 @@ server:
 
 spring:
   application:
-    name: API-GATEWAY
+    name: api-gateway
 
   cloud:
     gateway:
       server:
         webmvc:
           routes:
-            - id: EMPLOYEE-SERVICE
-              uri: lb://EMPLOYEE-SERVICE
+            - id: employee-service
+              uri: lb://employee-service
               predicates:
                 - Path=/api/employees/**
-            - id: DEPARTMENT-SERVICE
-              uri: lb://DEPARTMENT-SERVICE
+            - id: department-service
+              uri: lb://department-service
               predicates:
                   - Path=/api/departments/**
 
