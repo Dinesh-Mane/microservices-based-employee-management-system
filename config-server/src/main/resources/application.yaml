@@ -9,9 +9,10 @@ spring:
     config:
       server:
         git:
-          uri: https://github.com/Dinesh-Mane/config-server-repo
+          uri: https://github.com/Dinesh-Mane/microservices-based-employee-management-system
           clone-on-start: true
-          default-label: master
+          default-label: main
+          search-paths: config-files
 
 eureka:
   client:
