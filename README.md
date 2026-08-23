@@ -17,6 +17,9 @@
 <img width="1918" height="1018" alt="dynamic reload using spring cloud bus and rabbitmq 02" src="https://github.com/user-attachments/assets/06c31a14-a8be-410f-9361-49da822b600b" />
 
 
+<img width="1918" height="893" alt="image" src="https://github.com/user-attachments/assets/68bd5b55-21f4-433a-a243-147e4772d772" />
+
+
 <img width="1891" height="966" alt="dynamic reload using spring cloud bus and rabbitmq 03" src="https://github.com/user-attachments/assets/b7f44da9-6b49-4f3f-840c-320ab5046f49" />
 
 
