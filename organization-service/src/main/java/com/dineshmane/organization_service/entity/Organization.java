@@ -21,12 +21,12 @@ public class Organization {
     private Long id;
 
     @Column(nullable = false)
-    private String organizationName;
+    private String orgName;
 
-    private String organizationDescription;
+    private String orgDescription;
 
     @Column(nullable = false, unique = true)
-    private String organizationCode;
+    private String orgCode;
 
     @CreationTimestamp
     private LocalDateTime createdDate;
