@@ -5,7 +5,7 @@ import com.dineshmane.organization_service.entity.Organization;
 
 public class OrganizationMapper {
 
-    public static OrganizationDto mapToOrganization(Organization organization){
+    public static OrganizationDto mapToOrganizationDto(Organization organization){
         return new OrganizationDto(
                 organization.getId(),
                 organization.getOrgName(),
